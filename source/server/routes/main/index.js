@@ -5,7 +5,7 @@ import renderLayout from 'server/render-layout';
 import render from 'server/render';
 import settings from 'server/settings';
 
-import configureStore from 'shared/configure-store';
+import configureStore from 'shared/store';
 import createRoutes from 'shared/router';
 
 const store = configureStore();

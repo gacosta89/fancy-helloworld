@@ -25,8 +25,4 @@ const books = (state = {
   }
 };
 
-const reducers = {
-  books
-};
-
-export default reducers;
+export default books;
