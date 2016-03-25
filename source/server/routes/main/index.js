@@ -6,10 +6,10 @@ import render from 'server/render';
 import settings from 'server/settings';
 
 import configureStore from 'shared/configure-store';
-import createRoutes from 'shared/routes';
+import createRoutes from 'shared/router';
 
 const store = configureStore();
-const routes = createRoutes(React);
+const routes = createRoutes(React)();
 const initialState = store.getState();
 
 export default (req, res) => {
