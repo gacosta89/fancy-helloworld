@@ -1,45 +1,29 @@
-# Universal React Boilerplate 
+# Fork of the Universal React Boilerplate by cloverfield-tools
 
-[![Dependency Status](https://david-dm.org/cloverfield-tools/universal-react-boilerplate.svg)](https://david-dm.org/cloverfield-tools/universal-react-boilerplate)
-[![devDependency Status](https://david-dm.org/cloverfield-tools/universal-react-boilerplate/dev-status.svg)](https://david-dm.org/cloverfield-tools/universal-react-boilerplate#info=devDependencies)
-[![Travis-CI](https://travis-ci.org/cloverfield-tools/universal-react-boilerplate.svg?branch=master)](https://travis-ci.org/cloverfield-tools/universal-react-boilerplate)
+## Link to the original repo:
+[Universal React Boilerplate](https://github.com/cloverfield-tools/universal-react-boilerplate)
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/learn-javascript-courses/javascript-questions?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+Why I made this fork:
+* Hot reloading in the original repo does not work out of the box. Mainly because hot reloading does not work with pure render components and factory functions yet, as they are used in the original repo. Until then I prefer to use `React.createClass` method, for hot reloading to work.
+* Took out server side rendering for dev mode and testing.
 
+## Features:
 A simple boilerplate Node app featuring:
 
 * Universal JavaScript. *Routing & Rendering with shared components, shared store, & shared routes.*
 * State managed by Redux.
+* Hot reloading dev server.
+* Server side rendering.
 * Standard ES6 modules using Babel + webpack.
 * React + JSX + ES7 object spread via Babel.
 * Express 4.x.
-* Hot loading dev server.
 * Useful scripts and conventions for app development.
 
-
-## Learn JavaScript with Eric Elliott
-
 The Universal React Boilerplate was written for the ["Learn JavaScript with Eric Elliott" courses](https://ericelliottjs.com/). A series of courses to teach people how to build great JavaScript apps for production. Don't just learn JavaScript. Learn how to build amazing things.
-
-## Status
-
-### ES6 updates
-
-Rewritten from the ground up for ES6 + React with Babel and webpack.
-
-### React
-
-Useful to get a working starting point. Still exploratory and evolving. Needs production hardening. If you use this in a production app, please contribute your production tweaks back so we can all benefit.
-
-Our next big challenge is to encapsulate universal route, render, and store config into its own library module, which would radically simplify the process of building your apps using this boilerplate.
-
 
 ## Getting Started
 
 We're using an ES6 template string for the page skeleton + React to render the actual UI into the `root` div.
-
-The React render happens on both the server and the client using shared code. React components are written in class-free style using [pure components](https://github.com/ericelliott/react-pure-component-starter) wherever possible.
-
 
 ```
 npm install
@@ -61,11 +45,6 @@ There are many advantages to building apps this way, but the primary advantages 
 
 
 ## Tech stack
-
-Take a look at the [Roadmap](https://github.com/cloverfield-tools/universal-react-boilerplate/issues/4) for an idea of where this is going. Help is welcome and encouraged! =)
-
-The universal boilerplate uses standard JavaScript modules to author all of the code. All open-source modules are sourced from `npm`.
-
 
 **Why not use Bower and AMD?** Lots of reasons:
 
@@ -129,7 +108,7 @@ npm run start
 npm start
 ```
 
-## 
+##
 Log messages will be written to the console (stdout) in JSON format for convenient queries using tools like [Splunk](http://www.splunk.com/). You should be able to pipe the output to a third party logging service for aggregation without including that log aggregation logic in the app itself.
 
 
@@ -179,8 +158,3 @@ We also need to tell webpack configs (located in the project root) about the sou
 * Dazzle your coworkers.
 
 If you find yourself using the same file in a lot of modules, it's probably a better idea to split it out into its own module -- preferably open source. Then you can just install it like any other module so it can live in `node_modules`.
-
-
-<a href="https://ericelliottjs.com"><img width="1200" alt="Learn JavaScript with Eric Elliott" src="https://cloud.githubusercontent.com/assets/364727/8640836/76d86618-28c3-11e5-8b6e-27d9cd72180e.png"></a>
-
-Created for & Sponsored by "Learn JavaScript with Eric Elliott", an online course series for application builders. Ready to jump in? [Learn more](https://ericelliottjs.com/).
