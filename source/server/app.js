@@ -1,16 +1,19 @@
-import path from 'path';
 import express from 'express';
-import settings from 'server/settings';
+import log from 'server/log';
+import config from 'config';
 
-import mainRoute from './routes/main';
+import mainRoute from 'server/routes/main';
 
-const app = express();
+const makeApp = (app = express()) => {
+    app.use(log.requestLogger());
 
-const buildDir = '/build';
-const staticDir = path.join(settings.APP_HOME, buildDir);
+    const staticDir = config.get('folders.client.static');
+    console.info('assets folder:', staticDir);
+    app.use('/static', express.static(staticDir));
 
-app.use('/static', express.static(staticDir));
+    app.use('/', mainRoute);
 
-app.use('/', mainRoute);
+    return app;
+};
 
-export default app;
+export default makeApp;

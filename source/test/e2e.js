@@ -1,8 +1,8 @@
 import runner from 'nightwatch-autorun';
-import server from 'server/app.js';
+import makeApp from 'server/app.js';
+import config from 'config';
 
+const app = makeApp();
+const NODE_PORT = process.env.NODE_PORT || config.get('port');
 
-const NODE_PORT = process.env.NODE_PORT || 3000;
-
-
-runner({port: NODE_PORT, server});
+runner({port: NODE_PORT, server: app});

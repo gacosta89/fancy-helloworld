@@ -1,2 +1,2 @@
-import 'test/title';
+import 'test/pages/home';
 import 'test/functional';

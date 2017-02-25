@@ -1,16 +1,24 @@
 machine:
   node:
-    version: v4.2.6
-
+    version: v6.10.0
+  environment:
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
 
 dependencies:
-  pre:
-    - npm install -g npm@3
+  override:
+    - yarn
+  cache_directories:
+    - ~/.cache/yarn
 
 test:
   override:
-    - ./node_modules/.bin/eslint --debug . --format tap | ./node_modules/.bin/tap-xunit > ${CIRCLE_TEST_REPORTS}/lint.xml && test ${PIPESTATUS[0]} -eq 0
-    - NODE_PATH=source ./node_modules/.bin/babel-node source/test | ./node_modules/.bin/tap-xunit > ${CIRCLE_TEST_REPORTS}/test.xml && test ${PIPESTATUS[0]} -eq 0
-    - npm outdated --depth=0
-    - npm run build -s
-    - REPORT_DIR=${CIRCLE_TEST_REPORTS} LOG_DIR=${CIRCLE_ARTIFACTS} npm run test:e2e -s
+    - yarn test
+    - eslint --debug . --format tap | tap-xunit > ${CIRCLE_TEST_REPORTS}/lint.xml && test ${PIPESTATUS[0]} -eq 0
+    - NODE_PATH=source babel-node source/test | tap-xunit > ${CIRCLE_TEST_REPORTS}/test.xml && test ${PIPESTATUS[0]} -eq 0
+    - yarn run build:client -s
+    - yarn run build:server -s
+    - REPORT_DIR=${CIRCLE_TEST_REPORTS} LOG_DIR=${CIRCLE_ARTIFACTS} yarn run test:e2e -s
+
+general:
+  artifacts:
+    - reports

@@ -1,29 +1,29 @@
-# Fork of the Universal React Boilerplate by cloverfield-tools
+# Universal Monolithic Project
 
-## Link to the original repo:
-[Universal React Boilerplate](https://github.com/cloverfield-tools/universal-react-boilerplate)
-
-Why I made this fork:
-* Hot reloading in the original repo does not work out of the box. Mainly because hot reloading does not work with pure render components and factory functions yet, as they are used in the original repo. Until then I prefer to use `React.createClass` method, for hot reloading to work.
-* Took out server side rendering for dev mode and testing.
-
-## Features:
-A simple boilerplate Node app featuring:
+A simple Node app ilustrating:
 
 * Universal JavaScript. *Routing & Rendering with shared components, shared store, & shared routes.*
 * State managed by Redux.
-* Hot reloading dev server.
-* Server side rendering.
 * Standard ES6 modules using Babel + webpack.
 * React + JSX + ES7 object spread via Babel.
 * Express 4.x.
 * Useful scripts and conventions for app development.
 
-The Universal React Boilerplate was written for the ["Learn JavaScript with Eric Elliott" courses](https://ericelliottjs.com/). A series of courses to teach people how to build great JavaScript apps for production. Don't just learn JavaScript. Learn how to build amazing things.
+# Fork of the Universal React Boilerplate by cloverfield-tools
+
+## Link to the original repo:
+[Universal React Boilerplate](https://github.com/cloverfield-tools/universal-react-boilerplate)
+
+Why I made this project:
+* Even though Universal React Boilerplate is deprecated in favor of Next.js, I think I still find this project helpful for having a starting point for my apps and also to show developers how to wire a project with server side rendering, hot reloading, babel, webpack, react and redux.
+* To include hot reloading
 
 ## Getting Started
 
 We're using an ES6 template string for the page skeleton + React to render the actual UI into the `root` div.
+
+The React render happens on both the server and the client using shared code. React components are written in class-free style using [pure components](https://github.com/ericelliott/react-pure-component-starter) wherever possible.
+
 
 ```
 npm install
@@ -46,23 +46,7 @@ There are many advantages to building apps this way, but the primary advantages 
 
 ## Tech stack
 
-**Why not use Bower and AMD?** Lots of reasons:
-
-* `npm` has 5x more modules than Bower, 60% of which are browser compatible, and `npm` is growing faster than Bower. In fact, `npm` is the largest package repository available for any programming language.
-* Webpack and browserify let you bundle standard ES6 style modules for the browser.
-* Typical Node applications are not written using AMD modules or Bower, so sharing code becomes more complicated when you author with AMD.
-* Bower modules frequently assume they're running in a browser environment and do things that don't make any sense in the server environment.
-* Typical AMD apps default to asynchronously loading all the modules. That's bad for performance. See below.
-* 2010 called. They want you to know that AMD was always intended to be a temporary hack until something better came along. Something better has come along. Welcome to the universal future. ;)
-
-
-### The problem with AMD's async loading default
-
-Asynchronously loading all your modules by default is really bad for application start up performance because all those requests create latency queues which can be really painful on mobile devices. HTTP2 / SPDY are changing that in modern browsers, but people often use their mobile devices for years without upgrading the browsers on them. I recommend bundling all your commonly used behavior (including templates and CSS) into a single, compressed JavaScript file in order to minimize request latency.
-
-I know that AMD supports bundling with tools like `r.js`, but many apps start out without bundling and *never bother to fix it later.* I've personally been on three different app projects where bundling was postponed for a year or more, all the while making customers wait. I knew this was bad, and I tried to get it fixed, but on a large enterprise app project, getting something like that changed mid-project takes klout, political maneuvering, and buy-in from teams who may never have met you and could be wondering why you're creating work for them when they're already behind schedule.
-
-In my experience, every team is always behind schedule if you ask them to do work they weren't planning well ahead of time. ;)
+The universal boilerplate uses standard JavaScript modules to author all of the code. All open-source modules are sourced from `npm`.
 
 
 ## What's inside?
@@ -81,11 +65,11 @@ The `server/index` route serves dynamic content. Static assets are served from t
 
 ## Scripts
 
-Some of these scripts may require a Unix/Linux environment. OS X and Linux come with appropriate terminals ready to roll. On Windows, you'll need git installed, which comes with Git Bash. That should work. If you have any trouble, please [report the issue](https://github.com/cloverfield-tools/universal-react-boilerplate/issues/new).
+Some of these scripts may require a Unix/Linux environment. OS X and Linux come with appropriate terminals ready to roll. On Windows, you'll need git installed, which comes with Git Bash. That should work. 
 
 The `package.json` file comes with the following scripts that you may find useful:
 
-* `npm start` runs a client-only devserver with hot loading
+* `npm start` runs a client-only devserver
 * `npm run build` rebuilds the client
 * `npm run watch` runs a dev console that reports lint and unit test errors on save
 * `npm run server` runs the actual server process
@@ -150,11 +134,3 @@ We also need to tell webpack configs (located in the project root) about the sou
     root: __dirname + '/source'
   }
 ```
-
-### Why?
-
-* You can move things around more easily.
-* Every file documents your app's directory structure for you. You'll know exactly where to look for things.
-* Dazzle your coworkers.
-
-If you find yourself using the same file in a lot of modules, it's probably a better idea to split it out into its own module -- preferably open source. Then you can just install it like any other module so it can live in `node_modules`.
