@@ -22,7 +22,12 @@ module.exports = {
         publicPath: '/static/'
     },
     plugins: [
-        new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            sourceMap: true,
+            compressor: {
+                warnings: false
+            }
+        }),
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify('production'),
