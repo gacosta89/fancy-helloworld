@@ -14,5 +14,10 @@ module.exports = {
         params: false,
     },
     host: '0.0.0.0',
-    port: '8080'
+    port: '8080',
+    test: {
+        folders: {
+            reports: path.join(homeFolder, 'reports'),
+        },
+    },
 };
