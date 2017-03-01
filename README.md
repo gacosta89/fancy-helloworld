@@ -17,6 +17,7 @@ A simple Node app ilustrating:
 Why I made this project:
 * Even though Universal React Boilerplate is deprecated in favor of Next.js, I think I still find this project helpful for having a starting point for my apps and also to show developers how to wire a project with server side rendering, hot reloading, babel, webpack, react and redux.
 * To include hot reloading
+* To use docker
 
 ## Getting Started
 
@@ -26,9 +27,9 @@ The React render happens on both the server and the client using shared code. Re
 
 
 ```
-npm install
-npm run build:dev
-npm start
+yarn install
+yarn run build:dev
+yarn run dev
 ```
 
 Now the app should be running at http://0.0.0.0:3000/
@@ -69,15 +70,21 @@ Some of these scripts may require a Unix/Linux environment. OS X and Linux come 
 
 The `package.json` file comes with the following scripts that you may find useful:
 
-* `npm start` runs a client-only devserver
-* `npm run build` rebuilds the client
-* `npm run watch` runs a dev console that reports lint and unit test errors on save
-* `npm run server` runs the actual server process
+* `yarn run dev` runs a client-only devserver
+* `yarn run watch` runs a dev console that reports lint and unit test errors on save
+* `yarn run lint` lints the code under the project folder with eslint
+* `yarn run test` runs the commit tests and some smoketests
+* `yarn run build` rebuilds the client and the server
+* `yarn run deploy` creates a docker image
+* `yarn run start` starts the created docker image in a container
+* `yarn run stop` stops and removes the containers that run the image
+* `yarn run test:e2e` runs nightwatch against the docker container
+* `yarn run run:all` runs the deployment pipeline (fancy way to say all of the commands avove) 
 
 To run a script, open the terminal, navigate to the boilerplate directory, and type:
 
 ```
-npm run <name of script>
+yarn run <name of script>
 ```
 
 
@@ -85,11 +92,8 @@ npm run <name of script>
 
 Start the dev server.
 
-You can optionally leave `run` out of the `start` and `test` script invocations, so these are equivalent:
-
 ```
-npm run start
-npm start
+yarn run dev
 ```
 
 ##
@@ -99,7 +103,7 @@ Log messages will be written to the console (stdout) in JSON format for convenie
 ### Developer feedback console:
 
 ```
-npm run watch
+yarn run watch
 ```
 
 The dev console does the following:
@@ -122,7 +126,6 @@ This requires the `NODE_PATH` environment variable to be set to `source`. For ex
 
 ```js
   scripts: {
-    "server": "NODE_PATH=source babel-node source/server/index.js",
     "test": "NODE_PATH=source babel-node source/test/index.js",
   }
 ```
@@ -131,6 +134,9 @@ We also need to tell webpack configs (located in the project root) about the sou
 
 ```js
   resolve: {
-    root: __dirname + '/source'
+    modules: [
+      'node_modules',
+      path.join(__dirname, 'source'),
+    ]
   }
 ```

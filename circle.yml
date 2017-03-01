@@ -14,7 +14,6 @@ dependencies:
 
 test:
   override:
-    - yarn test
     - eslint --debug . --format tap | tap-xunit > ${CIRCLE_TEST_REPORTS}/lint.xml && test ${PIPESTATUS[0]} -eq 0
     - NODE_PATH=source babel-node source/test | tap-xunit > ${CIRCLE_TEST_REPORTS}/test.xml && test ${PIPESTATUS[0]} -eq 0
     - yarn run build:client -s

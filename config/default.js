@@ -17,7 +17,7 @@ module.exports = {
     port: '8080',
     test: {
         folders: {
-            reports: path.join(homeFolder, 'reports'),
+            reports: process.env.CIRCLE_TEST_REPORTS || path.join(homeFolder, 'reports'),
         },
     },
 };
