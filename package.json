@@ -10,11 +10,11 @@
     "build:client": "webpack --config webpack.config.prod.js",
     "build:dev": "webpack --config webpack.config.dev.js",
     "build:server": "webpack --config webpack.config.server.js",
-    "deploy": "docker build -t universal-monolithic-project:$(git rev-parse --short HEAD) .",
-    "start": "docker run -p 8080:8080 -d universal-monolithic-project:$(git rev-parse --short HEAD)",
-    "stop": "docker rm $(docker stop $(docker ps -a -q --filter ancestor=universal-monolithic-project:$(git rev-parse --short HEAD) --format=\"{{.ID}}\"))",
+    "deploy": "babel-node scripts/docker.js --build universal-monolithic-project",
+    "start": "babel-node scripts/docker.js --start universal-monolithic-project",
+    "stop": "babel-node scripts/docker.js --stop universal-monolithic-project",
     "test:e2e": "babel-node scripts/e2e.js",
-    "run:all": "npm run lint && npm run test && npm run build && npm run deploy && npm run start && npm run test:e2e",
+    "run:all": "npm run lint && npm run test && babel-node scripts/docker.js --stop --clean universal-monolithic-project && babel-node scripts/docker.js --build --start universal-monolithic-project && npm run test:e2e",
     "dev": "cross-env NODE_PATH=source babel-node devServer.js",
     "watch": "watch \"clear && npm run lint -s && npm run test -s\" source"
   },
@@ -30,7 +30,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:gacostar89/universal-monolithic-project.git"
+    "url": "git@github.com:gacosta89/universal-monolithic-project.git"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
@@ -89,5 +89,5 @@
     "styled-components": "^1.4.2"
   },
   "license": "MIT",
-  "homepage": "https://github.com/gacostar89/universal-monolithic-project"
+  "homepage": "https://github.com/gacosta89/universal-monolithic-project"
 }
