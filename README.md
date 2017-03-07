@@ -1,4 +1,4 @@
-# Universal Monolithic Project
+# Fancy Hello World
 
 A simple Node app ilustrating:
 
