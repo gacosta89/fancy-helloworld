@@ -79,7 +79,7 @@ The `package.json` file comes with the following scripts that you may find usefu
 * `yarn run start` starts the created docker image in a container
 * `yarn run stop` stops and removes the containers that run the image
 * `yarn run test:e2e` runs nightwatch against the docker container
-* `yarn run run:all` runs the deployment pipeline (fancy way to say all of the commands avove) 
+* `yarn run all` runs the deployment pipeline (fancy way to say all of the commands avove) 
 
 To run a script, open the terminal, navigate to the boilerplate directory, and type:
 

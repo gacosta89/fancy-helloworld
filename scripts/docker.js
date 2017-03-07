@@ -13,7 +13,8 @@ const prependStr = prepend => str => prepend ? `${prepend}"${str}"` : str;
 const platformCmd = prependStr(isWin ? 'powershell -NoProfile -Command ' : '');
 
 if (['--build', '--start', '--stop'].some(cmd => cmd === imageName)) {
-    throw new Error('\nUps! You should specify the image name as the last argument of the docker script.');
+    console.error('\nUps! You should specify the image name as the last argument of the docker script.');
+    process.exit(1); //eslint-disable-line
 }
 
 const buildCmd = platformCmd(`docker build -t ${imageName}:$(git rev-parse --short HEAD) .`);
@@ -117,4 +118,4 @@ const clean = stop.then(() => cleanFlag ? doClean(query) : Promise.resolve('\n -
 
 clean.then((msg = '\n # done cleaning!') => console.log(msg))
     .then(() => console.log('\n ## all done!'))
-    .catch(() => console.error('\n ## check the errors above.'));
+    .catch(() => { console.error('\n ## check the errors above.'); process.exit(1) }); //eslint-disable-line

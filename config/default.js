@@ -3,7 +3,7 @@ var path = require('path');
 const homeFolder = path.join(__dirname, '../');
 
 module.exports = {
-    name: 'Universal Monolithic Project',
+    name: 'Fancy Hello World',
     folders: {
         home: homeFolder,
         client: {

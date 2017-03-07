@@ -1,17 +1,20 @@
 import webpack from 'webpack';
-import config from './webpack.config.dev';
+import webpackConfig from './webpack.config.dev';
 import express from 'express';
+import config from 'config';
 
 import renderLayout from 'server/render/layout';
 
-const compiler = webpack(config);
+const compiler = webpack(webpackConfig);
 const NODE_PORT = process.env.NODE_PORT || 3000;
 const NODE_HOST = process.env.NODE_HOST || '0.0.0.0';
 const app = express();
 
+const title = config.get('name');
+
 app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
-    publicPath: config.output.publicPath
+    publicPath: webpackConfig.output.publicPath
 }));
 
 app.use(require('webpack-hot-middleware')(compiler, {
@@ -22,7 +25,7 @@ app.use(require('webpack-hot-middleware')(compiler, {
 app.use('*', (req, res) => {
     res.status(200).send(
         renderLayout({
-            title: 'Universal Monolithic Boilerplate',
+            title,
             rootMarkup: '',
             initialState: {}
         }));

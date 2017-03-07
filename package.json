@@ -1,5 +1,5 @@
 {
-  "name": "universal-monolithic-project",
+  "name": "fancy-helloworld",
   "version": "1.0.0",
   "description": "React Redux Node.js sample project to give insights on how to wire a universal js app",
   "scripts": {
@@ -7,14 +7,14 @@
     "test": "cross-env NODE_PATH=source babel-node source/test/index.js",
     "clean": "rimraf build",
     "build": "npm run clean && npm run build:client && npm run build:server",
-    "build:client": "webpack --config webpack.config.prod.js",
-    "build:dev": "webpack --config webpack.config.dev.js",
-    "build:server": "webpack --config webpack.config.server.js",
-    "deploy": "babel-node scripts/docker.js --build universal-monolithic-project",
-    "start": "babel-node scripts/docker.js --start universal-monolithic-project",
-    "stop": "babel-node scripts/docker.js --stop universal-monolithic-project",
+    "build:client": "webpack --config webpack.config.prod.js --bail",
+    "build:dev": "webpack --config webpack.config.dev.js --bail",
+    "build:server": "webpack --config webpack.config.server.js --bail",
+    "deploy": "babel-node scripts/docker.js --build fancy-helloworld",
+    "start": "babel-node scripts/docker.js --start fancy-helloworld",
+    "stop": "babel-node scripts/docker.js --stop fancy-helloworld",
     "test:e2e": "babel-node scripts/e2e.js",
-    "run:all": "npm run lint && npm run test && babel-node scripts/docker.js --stop --clean universal-monolithic-project && babel-node scripts/docker.js --build --start universal-monolithic-project && npm run test:e2e",
+    "all": "npm run lint && npm run test && npm run build && babel-node scripts/docker.js --stop --clean fancy-helloworld && babel-node scripts/docker.js --build --start fancy-helloworld && npm run test:e2e",
     "dev": "cross-env NODE_PATH=source babel-node devServer.js",
     "watch": "watch \"clear && npm run lint -s && npm run test -s\" source"
   },
@@ -30,7 +30,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:gacosta89/universal-monolithic-project.git"
+    "url": "git@github.com:gacosta89/fancy-helloworld.git"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
@@ -89,5 +89,5 @@
     "styled-components": "^1.4.2"
   },
   "license": "MIT",
-  "homepage": "https://github.com/gacosta89/universal-monolithic-project"
+  "homepage": "https://github.com/gacosta89/fancy-helloworld"
 }
