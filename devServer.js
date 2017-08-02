@@ -1,36 +1,37 @@
 import webpack from 'webpack';
-import webpackConfig from './webpack.config.dev';
-import express from 'express';
+import devConfig from './webpack.config.dev.js';
 import config from 'config';
+import WebpackDevServer from 'webpack-dev-server';
 
 import renderLayout from 'server/render/layout';
 
-const compiler = webpack(webpackConfig);
+const compiler = webpack(devConfig);
 const NODE_PORT = process.env.NODE_PORT || 3000;
-const NODE_HOST = process.env.NODE_HOST || '0.0.0.0';
-const app = express();
+const NODE_HOST = 'localhost';
 
-const title = config.get('name');
+const notStaticPath = /^(?!.*\/static).*$/;
 
-app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
-    publicPath: webpackConfig.output.publicPath
-}));
-
-app.use(require('webpack-hot-middleware')(compiler, {
-    path: '/__what',
-    heartbeat: 2000,
-}));
-
-app.use('*', (req, res) => {
-    res.status(200).send(
-        renderLayout({
-            title,
-            rootMarkup: '',
-            initialState: {}
-        }));
+const server = new WebpackDevServer(compiler, {
+    stats: {
+        colors: true,
+    },
+    hot: true,
+    contentBase: config.get('folders.client.static'),
+    publicPath: '/static/',
+    port: NODE_PORT,
+    setup (app) {
+        app.use(notStaticPath, (req, res) => {
+            res.status(200).send(
+                renderLayout({
+                    title: config.get('name'),
+                    rootMarkup: '',
+                    initialState: {}
+                }));
+        });
+    }
 });
 
-app.listen(NODE_PORT, NODE_HOST, (err) => err ?
+
+server.listen(NODE_PORT, NODE_HOST, (err) => err ?
            console.error(err) :
            console.log(`Listening at http://${NODE_HOST}:${NODE_PORT}`));

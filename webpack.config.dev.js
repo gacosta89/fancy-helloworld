@@ -14,9 +14,11 @@ module.exports = {
         ]
     },
     entry: [
+        'babel-polyfill',
         'react-hot-loader/patch',
-        'webpack-hot-middleware/client?path=/__what&timeout=2000&overlay=false&reload=true',
-        './source/client/index'
+        'webpack-dev-server/client?http://localhost:3000',
+        'webpack/hot/only-dev-server',
+        './source/client/index',
     ],
     output: {
         path: path.join(__dirname, 'build'),
@@ -39,7 +41,6 @@ module.exports = {
             loader: 'babel-loader',
             include: [
                 path.join(__dirname, 'source'),
-                path.join(__dirname, 'app-home.js')
             ]
         }, {
             test: /\.(png|jpg|gif|GIF|ttf|woff|eot|svg|css)$/,

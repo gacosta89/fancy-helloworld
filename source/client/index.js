@@ -5,10 +5,10 @@ import { createStore } from 'redux';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import rootReducer from 'shared/app/reducer';
-import configureRouter from 'shared/app/router';
-import configureProvider from 'shared/app/provider';
 import i18n from 'shared/app/i18n';
+import App from 'shared/app/main';
+
+import rootReducer from 'shared/app/reducer';
 
 import 'normalize.css/normalize.css';
 
@@ -17,20 +17,17 @@ const iniState = window.BOOTSTRAP_CLIENT_STATE;
 if (process.env.NODE_ENV === 'production') {
     const store = createStore(rootReducer, iniState);
     const history = syncHistoryWithStore(browserHistory, store);
-    const Router = configureRouter(history);
-    const Provider = configureProvider(store, i18n);
 
     ReactDOM.render(
-        <Provider>
-            <Router />
-        </Provider>,
+        <App history={history} store={store} i18n={i18n}/>,
         document.getElementById('root')
     );
 } else {
-    const DevTools = require('client/dev/devTools').default;
     const { AppContainer } = require('react-hot-loader');
-    const App = require('client/dev/app').default;
-    const store = createStore(rootReducer, iniState, DevTools.instrument());
+    const store = createStore(
+        rootReducer,
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() // eslint-disable-line no-underscore-dangle
+    );
     const history = syncHistoryWithStore(browserHistory, store);
 
     ReactDOM.render(
@@ -44,12 +41,12 @@ if (process.env.NODE_ENV === 'production') {
         store.replaceReducer(require('shared/app/reducer'));
     });
 
-    module.hot.accept('client/dev/app', () => {
-        const NextApp = require('client/dev/app').default;
+    module.hot.accept('shared/app/main', () => {
+        const NextApp = require('shared/app/main').default;
 
         ReactDOM.render(
             <AppContainer>
-                <NextApp history={ history } store={ store } />
+                <NextApp history={ history } store={ store } i18n={i18n}/>
             </AppContainer>,
             document.getElementById('root')
         );
