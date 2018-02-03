@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "e2e",
+  "version": "1.0.0",
+  "description": "e2e tests",
+  "scripts": {
+    "lint": "../../node_modules/.bin/eslint --cache . --ignore-path ../../.eslintignore",
+    "test:e2e": "../../node_modules/.bin/cross-env NODE_CONFIG_DIR=../../config ../../node_modules/.bin/babel-node scripts/e2e.js"
+  },
+  "keywords": [
+      "selenium",
+      "nightwatch"
+  ],
+  "dependencies": {
+    "selenium-standalone": "^6.12.0",
+    "nightwatch": "^0.9.19"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,18 @@
+{
+    "extends": "../../.babelrc",
+    "plugins": [
+        ["babel-project-relative-import", {
+            "sourceDir": "source/",
+            "importPathPrefix": "@/"
+        }]
+    ],
+    "env": {
+        "development": {
+            "plugins": [
+                [
+                    "react-hot-loader/babel"
+                ]
+            ]
+        }
+    }
+}

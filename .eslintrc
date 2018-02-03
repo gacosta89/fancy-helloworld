@@ -4,37 +4,16 @@
   "env": {
     "browser": true,
     "node": true,
-    "es6": true
+    "es6": true,
+    "jest/globals": true
   },
 
   "plugins": [
-    "react"
+    "react",
+    "jest"
   ],
 
-  "ecmaFeatures": {
-    "arrowFunctions": true,
-    "binaryLiterals": true,
-    "blockBindings": true,
-    "classes": false,
-    "defaultParams": true,
-    "destructuring": true,
-    "forOf": true,
-    "generators": true,
-    "modules": true,
-    "objectLiteralComputedProperties": true,
-    "objectLiteralDuplicateProperties": true,
-    "objectLiteralShorthandMethods": true,
-    "objectLiteralShorthandProperties": true,
-    "octalLiterals": true,
-    "regexUFlag": true,
-    "regexYFlag": true,
-    "spread": true,
-    "superInFunctions": false,
-    "templateStrings": true,
-    "unicodeCodePointEscapes": true,
-    "globalReturn": true,
-    "jsx": true
-  },
+  "extends": ["plugin:jest/recommended"],
 
   "rules": {
     "react/jsx-uses-react": 2,
@@ -162,14 +141,14 @@
     "no-extra-parens": [0],
     "one-var": [0],
     "operator-assignment": [0, "always"],
-    "operator-linebreak": [2, "after"],
+    "operator-linebreak": [0, "after"],
     "padded-blocks": [0],
     "quote-props": [0],
     "radix": [0],
-    "semi": [2],
+    "semi": ["error", "never"],
     "semi-spacing": [2, {"before": false, "after": true}],
     "sort-vars": [0],
-    "space-before-function-paren": [2, {"anonymous": "always", "named": "always"}],
+    "space-before-function-paren": [0, {"anonymous": "always", "named": "always"}],
     "space-before-blocks": [0, "always"],
     "space-in-brackets": [
       0, "never", {

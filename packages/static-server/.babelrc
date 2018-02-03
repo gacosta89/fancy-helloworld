@@ -1,0 +1,9 @@
+{
+    "extends": "../../.babelrc",
+    "plugins": [
+        ["babel-project-relative-import", {
+            "sourceDir": "source/",
+            "importPathPrefix": "@/"
+        }]
+    ]
+}

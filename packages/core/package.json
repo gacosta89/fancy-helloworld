@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "name": "core",
+  "version": "1.0.0",
+  "description": "core package",
+  "scripts": {
+    "lint": "../../node_modules/.bin/eslint --cache . --ignore-path ../../.eslintignore",
+    "clean": "../../node_modules/.bin/rimraf lib",
+    "build": "../../node_modules/.bin/cross-env NODE_ENV=production ../../node_modules/.bin/babel source --out-dir lib && cp -r source/static lib/static",
+    "build:watch": "../../node_modules/.bin/babel source --watch --out-dir lib && cp -r source/static lib/static"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "redux",
+    "hot-reloading",
+    "boilerplate",
+    "webpack",
+    "babel",
+    "react-transform"
+  ],
+  "dependencies": {
+    "i18next": "^7.0.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-i18next": "^2.2.0",
+    "react-redux": "^5.0.2",
+    "react-router": "^3.0.0",
+    "react-router-redux": "^4.0.6",
+    "redux": "^3.6.0",
+    "redux-saga": "^0.12.0",
+    "styled-components": "^1.4.2"
+  },
+    "license": "MIT"
+}
