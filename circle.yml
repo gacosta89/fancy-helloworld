@@ -14,7 +14,12 @@ dependencies:
 
 test:
   override:
-    - yarn run all
+    - yarn run bootstrap
+    - yarn run lint
+    - yarn run test
+    - yarn run build
+    - yarn run start
+    - yarn run test:e2e
 
 general:
   artifacts:
