@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  install:
+  all:
     docker: # use the docker executor type; machine and macos executors are also supported
       - image: circleci/node:10.9.0
     steps:
@@ -13,12 +13,7 @@ jobs:
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
-            - node_modules
-  unit:
-    docker: # use the docker executor type; machine and macos executors are also supported
-      - image: circleci/node:10.9.0
-    steps:
-      - checkout
+            - ./node_modules
       - run:
           name: lint 
           command: './node_modules/.bin/eslint --debug . --format tap | ./node_modules/.bin/tap-xunit'
@@ -27,54 +22,12 @@ jobs:
           command: './node_modules/.bin/babel-node source/test | ./node_modules/.bin/tap-xunit'
           environment:
             NODE_PATH: source
-      - store_artifacts:
-          path: lint.xml
-          prefix: unit
-      - store_artifacts:
-          path: test.xml
-          prefix: unit
-
-  build:
-    docker: # use the docker executor type; machine and macos executors are also supported
-      - image: circleci/node:10.9.0
-    steps:
-      - checkout
       - run:
           name: build 
           command: 'yarn run build'
-
-  start:
-    docker: # use the docker executor type; machine and macos executors are also supported
-      - image: circleci/node:10.9.0
-    steps:
-      - checkout
       - run:
           name: start 
           command: 'yarn run start'
-
-  test:
-    docker: # use the docker executor type; machine and macos executors are also supported
-      - image: circleci/node:10.9.0
-    steps:
-      - checkout
       - run:
           name: test 
           command: 'yarn run test:e2e'
-
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - install
-      - unit:
-          requires:
-            - install
-      - build:
-          requires:
-            - install
-      - start:
-          requires:
-            - build
-      - test:
-          requires:
-            - start
