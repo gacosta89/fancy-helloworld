@@ -9,7 +9,7 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: Install deps
-          command: yarn install --pure-lockfile
+          command: 'yarn install --pure-lockfile'
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
@@ -21,10 +21,10 @@ jobs:
       - checkout
       - run:
           name: lint 
-          command: eslint --debug . --format tap | tap-xunit
+          command: './node_modules/.bin/eslint --debug . --format tap | ./node_modules/.bin/tap-xunit'
       - run:
           name: test 
-          command: babel-node source/test | tap-xunit
+          command: './node_modules/.bin/babel-node source/test | ./node_modules/.bin/tap-xunit'
           environment:
             NODE_PATH: source
       - store_artifacts:
@@ -41,7 +41,7 @@ jobs:
       - checkout
       - run:
           name: build 
-          command: yarn run build
+          command: 'yarn run build'
 
   start:
     docker: # use the docker executor type; machine and macos executors are also supported
@@ -50,7 +50,7 @@ jobs:
       - checkout
       - run:
           name: start 
-          command: yarn run start
+          command: 'yarn run start'
 
   test:
     docker: # use the docker executor type; machine and macos executors are also supported
@@ -59,7 +59,7 @@ jobs:
       - checkout
       - run:
           name: test 
-          command: yarn run test:e2e
+          command: 'yarn run test:e2e'
 
 workflows:
   version: 2
