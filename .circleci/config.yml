@@ -26,13 +26,13 @@ jobs:
           name: test 
           command: babel-node source/test | tap-xunit
           environment:
-            NODE_PATH=source
+            NODE_PATH: source
       - store_artifacts:
-                path: lint.xml
-                prefix: unit
+          path: lint.xml
+          prefix: unit
       - store_artifacts:
-                path: test.xml
-                prefix: unit
+          path: test.xml
+          prefix: unit
 
   build:
     docker: # use the docker executor type; machine and macos executors are also supported
