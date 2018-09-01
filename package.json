@@ -6,16 +6,16 @@
     "lint": "eslint --cache .",
     "test": "cross-env NODE_PATH=source babel-node source/test/index.js",
     "clean": "rimraf build",
-    "build": "npm run clean && npm run build:client && npm run build:server",
+    "build": "yarn run clean && yarn run build:client && yarn run build:server",
     "build:client": "webpack --config webpack.config.prod.js --bail",
     "build:dev": "webpack --config webpack.config.dev.js --bail",
     "build:server": "webpack --config webpack.config.server.js --bail",
     "start": "pm2 start ecosystem.config.js",
     "stop": "pm2 stop ecosystem.config.js",
     "test:e2e": "babel-node scripts/e2e.js",
-    "all": "npm run clean && npm run lint && npm run test && npm run build && npm run start && npm run test:e2e",
+    "all": "yarn install --pure-lockfile && yarn run clean && yarn run lint && yarn run test && yarn run build && yarn run start && yarn run test:e2e",
     "dev": "cross-env NODE_PATH=source babel-node devServer.js",
-    "watch": "watch \"clear && npm run lint -s && npm run test -s\" source"
+    "watch": "watch \"clear && yarn run lint -s && yarn run test -s\" source"
   },
   "keywords": [
     "react",

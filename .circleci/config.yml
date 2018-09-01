@@ -33,9 +33,6 @@ jobs:
       - store_artifacts:
                 path: test.xml
                 prefix: unit
-    environment:
-      PATH: ./node_modules/.bin/:$PATH
-
 
   build:
     docker: # use the docker executor type; machine and macos executors are also supported
@@ -45,8 +42,6 @@ jobs:
       - run:
           name: build 
           command: yarn run build
-    environment:
-      PATH: ./node_modules/.bin/:$PATH
 
   start:
     docker: # use the docker executor type; machine and macos executors are also supported
@@ -56,8 +51,6 @@ jobs:
       - run:
           name: start 
           command: yarn run start
-    environment:
-      PATH: ./node_modules/.bin/:$PATH
 
   test:
     docker: # use the docker executor type; machine and macos executors are also supported
@@ -67,8 +60,6 @@ jobs:
       - run:
           name: test 
           command: yarn run test:e2e
-    environment:
-      PATH: ./node_modules/.bin/:$PATH
 
 workflows:
   version: 2
