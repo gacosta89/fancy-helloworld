@@ -1,18 +1,77 @@
-machine:
-  node:
-    version: v10.9.0
-  environment:
-    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+version: 2
+jobs:
+  install:
+    docker: # use the docker executor type; machine and macos executors are also supported
+      - image: circleci/node:10.9.0
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install deps
+          command: yarn install --pure-lockfile
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+  unit:
+    docker: # use the docker executor type; machine and macos executors are also supported
+      - image: circleci/node:10.9.0
+    steps:
+      - checkout
+      - run:
+          name: lint 
+          command: eslint --debug . --format tap | tap-xunit
+      - run:
+          name: test 
+          command: babel-node source/test | tap-xunit
+          environment:
+            NODE_PATH=source
+      - store_artifacts:
+                path: lint.xml
+                prefix: unit
+      - store_artifacts:
+                path: test.xml
+                prefix: unit
+  build:
+    docker: # use the docker executor type; machine and macos executors are also supported
+      - image: circleci/node:10.9.0
+    steps:
+      - checkout
+      - run:
+          name: build 
+          command: yarn run build
+  start:
+    docker: # use the docker executor type; machine and macos executors are also supported
+      - image: circleci/node:10.9.0
+    steps:
+      - checkout
+      - run:
+          name: start 
+          command: yarn run start
+  test:
+    docker: # use the docker executor type; machine and macos executors are also supported
+      - image: circleci/node:10.9.0
+    steps:
+      - checkout
+      - run:
+          name: test 
+          command: yarn run test:e2e
 
-test:
-  override:
-    - eslint --debug . --format tap | tap-xunit > ${CIRCLE_TEST_REPORTS}/lint.xml && test ${PIPESTATUS[0]} -eq 0
-    - NODE_PATH=source babel-node source/test | tap-xunit > ${CIRCLE_TEST_REPORTS}/test.xml && test ${PIPESTATUS[0]} -eq 0
-    - yarn run build:client
-    - yarn run build:server
-    - yarn run start
-    - REPORT_DIR=${CIRCLE_TEST_REPORTS} LOG_DIR=${CIRCLE_ARTIFACTS} yarn run test:e2e
-
-general:
-  artifacts:
-    - reports
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - install
+      - unit:
+          requires:
+            - install
+      - build:
+          requires:
+            - install
+      - start:
+          requires:
+            - build
+      - test:
+          requires:
+            - start
