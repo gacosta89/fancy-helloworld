@@ -1,2 +1,2 @@
-import 'test/pages/home';
-import 'test/functional';
+import 'test/pages/home'
+import 'test/functional'

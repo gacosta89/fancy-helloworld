@@ -1,1 +1,1 @@
-import './routes/index';
+import './routes/index'

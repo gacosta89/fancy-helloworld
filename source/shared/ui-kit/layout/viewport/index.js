@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const Viewport = styled.div`
     flex: 1;
@@ -7,6 +7,6 @@ const Viewport = styled.div`
     justify-content: center;
     align-items: stretch;
     position: relative;
-  `;
+`
 
-export default Viewport;
+export default Viewport

@@ -1,6 +1,6 @@
-var path = require('path');
+var path = require('path')
 
-const homeFolder = path.join(__dirname, '../');
+const homeFolder = path.join(__dirname, '../')
 
 module.exports = {
     name: 'Fancy Hello World',
@@ -17,7 +17,9 @@ module.exports = {
     port: '8080',
     test: {
         folders: {
-            reports: process.env.CIRCLE_TEST_REPORTS || path.join(homeFolder, 'reports'),
+            reports:
+                process.env.CIRCLE_TEST_REPORTS ||
+                path.join(homeFolder, 'reports'),
         },
     },
-};
+}

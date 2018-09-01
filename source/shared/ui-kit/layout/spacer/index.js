@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
 const spacerStyle = {
-  background: 'transparent'
-};
+    background: 'transparent',
+}
 
-const Spacer = ({style}) => <div style={{...spacerStyle, ...style}}></div>;
+const Spacer = ({ style }) => <div style={{ ...spacerStyle, ...style }} />
 
-export default Spacer;
+export default Spacer

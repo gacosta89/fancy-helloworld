@@ -3,7 +3,7 @@ export default ({ title, rootMarkup, initialState }) => {
     <!doctype html>
     <html>
       <head>
-        <title>${ title }</title>
+        <title>${title}</title>
         <link rel="shortcut icon" type="image/png" href="/static/assets/favicon.png">
         <link href="/static/assets/normalize.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -49,12 +49,12 @@ export default ({ title, rootMarkup, initialState }) => {
         </style>
       </head>
       <body>
-        <div id='root'>${ rootMarkup }</div>
+        <div id='root'>${rootMarkup}</div>
         <script>
           window.BOOTSTRAP_CLIENT_STATE = ${JSON.stringify(initialState)}
         </script>
         <script src="/static/index.js"></script>
       </body>
     </html>
-  `;
-};
+  `
+}

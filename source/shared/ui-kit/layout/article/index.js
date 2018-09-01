@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const Section = styled.article`
-  flex: 1;
-  display: flex;
-`;
+    flex: 1;
+    display: flex;
+`
 
-export default Section;
+export default Section
